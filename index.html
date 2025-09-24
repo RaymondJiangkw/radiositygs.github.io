@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Differentiable Light Transport with Gaussian Surfels via Adapted Radiosity for Efficient Relighting and Geometry Reconstruction</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Differentiable Light Transport with Gaussian Surfels via Adapted Radiosity for Efficient Relighting and Geometry Reconstruction</h1>
+          <h1 style="font-size:1.5rem"> SIGGRAPH Asia 2025<br>(ACM Transactions on Graphics) <br></h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://raymondjiangkw.github.io/">Kaiwen Jiang</a>,</span>
+            <span class="author-block">
+              <a href="https://www.jmsun.work/">Jia-Mu Sun</a>,</span>
+            <span class="author-block">
+              <a href="https://zilulii.github.io/">Zilu Li</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://danalaina.github.io/">Dan Wang</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://cseweb.ucsd.edu/~tzli/">Tzu-Mao Li</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://cseweb.ucsd.edu/~ravir/">Ravi Ramamoorthi</a>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">University of California, San Diego</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2509.18497"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2509.18497"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="https://youtu.be/JlLbeYrC_Nc"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/RaymondJiangkw/RadiosityGS"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./static/images/teaser.jpg" height="100%">
+      <h2 class="subtitle has-text-centered">
+        We build an efficient Gaussian-splatting-based framework for differentiable light transport, inspired from the classic radiosity theory. <br> During inference, we enable hundreds of FPS for global illumination effects, including view-dependent reflections using a spherical harmonics representation.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item">
+          <video poster="" id="fruit" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/fruit.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video poster="" id="fruit_relight" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/fruit_relight.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video poster="" id="cup_plane" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/cup_plane.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video poster="" id="cup_plane_relight" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/cup_plane_relight.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video poster="" id="complexball" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/complex_ball.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video poster="" id="complexball_relight" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/complex_ball_relight.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video poster="" id="nefertiti" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/nefertiti.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video poster="" id="nefertiti_relight" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/nefertiti_relight.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Radiance fields have gained tremendous success with applications ranging from novel view synthesis to geometry reconstruction, especially with the advent of Gaussian splatting. However, they sacrifice modeling of material reflective properties and lighting conditions, leading to significant geometric ambiguities and the inability to easily perform relighting. One way to address these limitations is to incorporate physically-based rendering, but it has been prohibitively expensive to include full global illumination within the inner loop of the optimization. Therefore, previous works adopt simplifications that make the whole optimization with global illumination effects efficient but less accurate.</p><p> In this work, we adopt Gaussian surfels as the primitives and build an efficient framework for differentiable light transport, inspired from the classic radiosity theory. The whole framework operates in the coefficient space of spherical harmonics, enabling both diffuse and specular materials. We extend the classic radiosity into non-binary visibility and semi-opaque primitives, propose novel solvers to efficiently solve the light transport, and derive the backward pass for gradient optimizations, which is more efficient than auto-differentiation. During inference, we achieve view-independent rendering where light transport need not be recomputed under viewpoint changes, enabling hundreds of FPS for global illumination effects, including view-dependent reflections using a spherical harmonics representation. </p><p> Through extensive qualitative and quantitative experiments, we demonstrate superior geometry reconstruction, view synthesis and relighting than previous inverse rendering baselines, or data-driven baselines given relatively sparse datasets with known or unknown lighting conditions.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/JlLbeYrC_Nc?si=jOYKp6FNAJClU-2I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Pipeline</h2>
+    
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="columns is-centered">
+          <div class="column content">
+            <img src="static/images/pipeline.jpg">
+            <p style="text-align: center;">At the core of our method is a <b>Differentiable Light Transport</b> module that is view-independent. Our differentiable light transport is therefore compatible with efficient rasterization. The gradients flow from the rasterizer into the underlying geometry, material and lighting conditions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Evaluation</h2>
+    <div class="content has-text-justified">
+      <p>
+        Our proposed framework only needs to calculate the light transport once and then supports efficient rendering at arbitrary viewpoint using a rasterizer. The time cost roughly increases <b>linearly</b> as the number of primitives increases. We propose a hybrid solver to efficiently solve the light transport while maintaining the low variance. With a small overhead, the variance is significantly reduced compared to using only MC.
+        For the full evaluation please check the paper.
+      </p>
+    </div>
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="columns is-centered">
+          <div class="column content">
+            <img src="static/images/time_cost.jpg">
+            <p style="text-align: center;">Relationship between the time cost of calculating the full light transport and the number of primitives.</p>
+          </div>
+        </div>
+        
+      </div>
+      
+      <div class="column">
+        <div class="columns is-centered">
+          <div class="column content">
+            <img src="static/images/variance.jpg">
+            <p style="text-align: center;">Comparison between the hybrid solver and Monte-carlo solver.  The variances of rendered images with global illumination using different solvers are demonstrated by colored heatmaps (colorbar is visualized on the right). The time cost forcalculating the light transport is labeled at the left-top corner</p>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Visual Comparisons</h2>
+    <div class="content has-text-justified">
+      <p>
+
+      </p>
+    </div>
+    <div class="columns is-centered">
+      <!-- Visual Effects. -->
+      <div class="column">
+        <div class="content">
+          <div class="columns is-centered">
+            <div class="column is-full-width">
+              <div id="example1" class="bal-container-small">
+      
+                <div class="bal-after">
+                  <img src="static/images/ours_fruit.jpg">
+                  <div class="bal-afterPosition afterLabel" style="z-index:1;">
+                    Ours
+                  </div>
+                </div>
+              
+                <div class="bal-before">
+                  <div class="bal-before-inset" style="width: 628px;">
+                  <img src="static/images/gs3_fruit.jpg">
+                    <div class="bal-beforePosition beforeLabel">
+                      GS<sup>3</sup> [Bi 2024]
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="bal-handle">
+                  <span class=" handle-left-arrow"></span>
+                  <span class="handle-right-arrow"></span>
+                </div>
+              
+              </div>
+
+
+              <div id="example2" class="bal-container-small">
+      
+                <div class="bal-after">
+                  <img src="static/images/ours_scene.jpg">
+                  <div class="bal-afterPosition afterLabel" style="z-index:1;">
+                    Ours [Global Illumination] (Geometry)
+                  </div>
+                </div>
+              
+                <div class="bal-before">
+                  <div class="bal-before-inset" style="width: 628px;">
+                  <img src="static/images/ours_scene_direct.jpg">
+                    <div class="bal-beforePosition beforeLabel">
+                      Ours [Direct Illumination] (Geometry)
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="bal-handle">
+                  <span class=" handle-left-arrow"></span>
+                  <span class="handle-right-arrow"></span>
+                </div>
+              
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!--/ Visual Effects. -->
+
+      <!-- Matting. -->
+      <div class="column">
+        <div class="columns is-centered">
+          <div class="column content">
+           
+            <div id="example4" class="bal-container-small">
+              <div class="bal-after">
+                <img src="static/images/ours_furball.jpg">
+                <div class="bal-afterPosition afterLabel" style="z-index:1;">
+                  Ours
+                </div>
+              </div>
+            
+              <div class="bal-before">
+                <div class="bal-before-inset" style="width: 628px;">
+                <img src="static/images/nrhints_furball.jpg">
+                  <div class="bal-beforePosition beforeLabel">
+                    NRHints [Zeng 2023]
+                  </div>
+                </div>
+              </div>
+            
+              <div class="bal-handle">
+                <span class=" handle-left-arrow"></span>
+                <span class="handle-right-arrow"></span>
+              </div>
+            
+            </div>
+
+            <div id="example5" class="bal-container-small">
+              <div class="bal-after">
+                <img src="static/images/ours_nefertiti.jpg">
+                <div class="bal-afterPosition afterLabel" style="z-index:1;">
+                  Ours
+                </div>
+              </div>
+            
+              <div class="bal-before">
+                <div class="bal-before-inset" style="width: 597px;">
+                <img src="static/images/ours_nefertiti_material_edit.jpg">
+                  <div class="bal-beforePosition beforeLabel">
+                    Edited Material (More Shiny)
+                  </div>
+                </div>
+              </div>
+            
+              <div class="bal-handle">
+                <span class=" handle-left-arrow"></span>
+                <span class="handle-right-arrow"></span>
+              </div>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{jiang2025radiositygs,
+  author  = {Jiang, Kaiwen and Sun, Jia-Mu and Li, Zilu and Wang, Dan and Li, Tzu-Mao and Ramamoorthi, Ravi},
+  title   = {Differentiable Light Transport with Gaussian Surfels via Adapted Radiosity for Efficient Relighting and Geometry Reconstruction},
+  year    = {2025},
+  journal = {ACM Transactions on Graphics (TOG)}, 
+  number  = {6}, 
+  volume  = {44}, 
+  month   = {December}
+}</code></pre>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+      <h2 class="title is-3">Acknowledgments and Funding</h2>
+      <p>
+	   We thank Rama Chellappa, Cheng Peng, Venkataram Sivaram, Haolin Lu, and Ishit Mehta for discussions. We thank the anonymous reviewers for detailed comments and suggestions. We also thank NVIDIA for GPU gifts. </p><p> This work was supported in part by the Intelligence Advanced Research Projects Activity (IARPA) via Department of Interior/ Interior Business Center (DOI/IBC) contract number 140D0423C0076. The views and conclusions contained herein are those of the authors and should not be interpreted as necessarily representing IARPA, DOI/IBC, or the U.S. Government. We also acknowledge support from ONR grant N00014-23-1-2526, NSF grant 2238839, NSF grants 2100237 and 2120019 for the Nautilus cluster, gifts from Adobe, Google, Qualcomm and Rembrand, an NSERC Postdoctoral Fellowship, the Ronald L. Graham Chair and the UC San Diego Center for Visual Computing.
+       </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">References</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            [Bi 2024] Zoubin Bi, Yixin Zeng, Chong Zeng, Fan Pei, Xiang Feng, Kun Zhou, and Hongzhi Wu. GS3: Efficient Relighting with Triple Gaussian Splatting.
+          </p>
+          <p>
+            [Zeng 2023] Chong Zeng, Guojun Chen, Yue Dong, Pieter Peers, Hongzhi Wu, and Xin Tong. Relighting Neural Radiance Fields with Shadow and Highlight Hints.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Concurrent Work. -->
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            We thank the authors of <a href="https://nerfies.github.io/">Nerfies</a> that kindly open sourced the template of this website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="./static/js/script.js"></script>
+<script>
+    new BeforeAfter({
+        id: '#example1'
+    });
+    new BeforeAfter({
+        id: '#example2'
+    });
+    new BeforeAfter({
+        id: '#example4'
+    });
+    new BeforeAfter({
+        id: '#example5'
+    });
+
+</script>
+
+</body>
+</html>
